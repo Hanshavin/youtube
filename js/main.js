@@ -1,4 +1,4 @@
-// var youtubeApp = 
+// var youtubeApp =
 new Vue ({
 	el: '#youtubeApp',
 	data: {
@@ -43,15 +43,16 @@ new Vue ({
 			console.log("progress: ", progress)
 
 			played = document.getElementById('reproduction-played')
-			// circle = document.getElementById('circle-indicator')
+			circle = document.getElementById('circle-indicator')
 
 			//played.style.width = progress + "%"
 
 			played.style.transform = "scaleX(" + progress + ")";
-			// circle.style.transform = "translateX(" + progress + "px)";
 
-			
-			
-		}, 1000)
+			var videoWidth = 360
+			var pos = progress * videoWidth
+			circle.style.transform = "translateX(" + pos + "px)";
+
+		}, 250)
 	}
 })
