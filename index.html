@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/animation.css">
+	<link rel="stylesheet" type="text/css" href="css/fontello-codes.css">
+	<link rel="stylesheet" type="text/css" href="css/fontello-embedded.css">
+	<link rel="stylesheet" type="text/css" href="css/fontello-ie7-codes.css">
+	<link rel="stylesheet" type="text/css" href="css/fontello-ie7.css">
+	<link rel="stylesheet" type="text/css" href="css/fontello.css">
+	<meta charset="utf-8">
+	<title></title>
+</head>
+
+
+<body >
+
+	<div class="wrapper" id="youtubeApp">
+		<div class="topbar">
+			<div class="content">
+				AS
+			</div>
+		</div>
+
+		<div class="content">
+			<section class="reproductor" v-for="vid in videos">
+
+
+				<video  v-bind:id="vid.ID" class="medio" width="640" height="360">
+					<source src="video.mp4" type="video/mp4">
+				</video>
+
+
+
+
+				<nav class="player-bottom">
+					<div class="barra">
+						<div id="progreso">
+							<div id="reproduction-played"></div>
+							<div id="circle-indicator" ></div>
+						</div>
+					</div>
+
+
+
+					<div class="botones-left">
+						<div class="playpause btn-inline">
+							<div id="play" v-on:click="playVid(vid)">
+								<i class="icon-play" v-bind:class="{noVisible : showPlay }" ></i>
+							</div>
+							<div id="pause" v-on:click="pauseVid(vid)" v-bind:class="{visible : showPause }" >
+								<i class="icon-pause"></i>
+							</div>
+						</div>
+
+						<div class="next-video btn-inline">
+							<i class="icon-to-end"></i>
+						</div>
+
+						<div class="volume btn-inline">
+							<i class=" icon-volume"></i>
+						</div>
+						<div class="time btn-inline">
+							<span>
+								<span class="currentTime">00:00 </span>/
+								<span class="duration">00:00</span>
+							</span>
+						</div>
+					</div>
+
+
+					<div class="botones-right">
+						<div class="fullscreen btn-inline">
+							<i class="icon-resize-full"></i>
+						</div>
+					</div>
+
+				</nav>
+
+
+			</section>
+
+
+		</div>
+	</div>
+
+
+<script type="text/javascript" src="https://unpkg.com/vue@2.2.6"></script>
+<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>

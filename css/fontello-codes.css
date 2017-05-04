@@ -1,0 +1,11 @@
+
+.icon-play:before { content: '\e800'; } /* '' */
+.icon-pause:before { content: '\e801'; } /* '' */
+.icon-to-end:before { content: '\e802'; } /* '' */
+.icon-to-start:before { content: '\e803'; } /* '' */
+.icon-volume-off:before { content: '\e804'; } /* '' */
+.icon-volume-down:before { content: '\e805'; } /* '' */
+.icon-volume:before { content: '\e806'; } /* '' */
+.icon-resize-full:before { content: '\e807'; } /* '' */
+.icon-resize-full-alt:before { content: '\e808'; } /* '' */
+.icon-desktop:before { content: '\e809'; } /* '' */

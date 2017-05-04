@@ -1,0 +1,87 @@
+html
+body
+	font-family: 'Open Sans', sans-serif
+	height 100%
+.topbar
+	width 100%
+	border-bottom 1px solid #e8e8e8
+.container
+	display flex
+	margin 0 auto
+	max-width 1764px
+	width 95%
+	padding 20px
+.reproductor
+	position absolute
+	height 360px
+	width 640px
+	// margin 20px auto
+	padding 5px
+	// background-color #999999
+.medio
+	position relative
+	background-color black
+	text-align center
+.player-bottom
+	width 616px
+	left 12px
+	bottom 6px
+	position absolute
+.barra
+	position absolute
+	bottom 35px
+	width 100%
+	// border 1px solid #CCCCCC
+#progreso
+	height 3px
+	width 100%
+	background-color rgba(255,255,255,.6)
+	
+#progreso #reproduction-played
+	float left
+	display inline-block
+	height 3px
+	//width 50%
+	//width 0%
+	width 100%
+	background-color red
+	//transition width .1s
+		
+	transform-origin: 0 0
+#progreso:hover
+	cursor pointer
+	height 5px
+	#reproduction-played
+		height 5px
+	#circle-indicator
+		cursor pointer
+		display inline-block
+		position absolute
+		left 0
+		background #bb0101
+		border-radius 100%
+		border 1px solid #000
+		height 15px
+		width 15px
+		margin-top -7px
+		// transform translateX(-50%)
+		transform translateX(-50%)
+#pause
+	display none
+.botones-left
+	margin 8px
+	float left
+.time
+	font-size 90%
+.botones-right
+	margin 8px
+	float right
+.btn-inline
+	-webkit-font-smoothing antialiased
+	cursor pointer
+	color white
+	display inline-block
+.visible
+	display block !important
+.noVisible
+	display none !important
