@@ -9,9 +9,29 @@ new Vue ({
 		}],
 		video: null
 	},
+	mounted(){
+
+		var self = this
+
+		self.video = document.getElementById('video1')
+
+		setInterval(function(){
+
+			played = document.getElementById('reproduction-played')
+			circle = document.getElementById('circle-indicator')
+
+			var videoProgress = (self.video.currentTime) / (self.video.duration) //porcentaje de progreso del video
+			var videoWidth = 640 // ancho en pixeles del video
+			var videoCorrection = 9 // correccion a la izquierda del circulo
+			var circlePos = videoProgress * videoWidth - videoCorrection // posision del circulo
+
+			played.style.transform = "scaleX(" + videoProgress + ")";
+			circle.style.transform = "translateX(" + circlePos  + "px)";
+
+		}, 250)
+	},
 	methods:{
 		playVid: function(video){
-
 			//console.log("video: ", video)
 			document.getElementById(video.ID).play()
 
@@ -27,36 +47,10 @@ new Vue ({
 			this.showPlay= false
 		},
 
+		videoPosition: function (e) {
+			console.log("e: ", e)
+		}
 
-
-
-	},
-	mounted(){
-
-
-		var self = this
-
-		self.video = document.getElementById('video1')
-
-		setInterval(function(){
-			var progress = (self.video.currentTime) / (self.video.duration)
-			console.log("progress: ", progress)
-
-			played = document.getElementById('reproduction-played')
-			circle = document.getElementById('circle-indicator')
-
-			//played.style.width = progress + "%"
-
-			played.style.transform = "scaleX(" + progress + ")";
-
-			var videoWidth = 640
-			var correction = 9
-
-			var pos = progress * videoWidth - correction
-			// console.log("pos: ", pos)
-
-			circle.style.transform = "translateX(" + pos  + "px)";
-
-		}, 250)
 	}
+
 })
