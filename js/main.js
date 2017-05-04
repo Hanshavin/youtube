@@ -49,9 +49,13 @@ new Vue ({
 
 			played.style.transform = "scaleX(" + progress + ")";
 
-			var videoWidth = 360
-			var pos = progress * videoWidth
-			circle.style.transform = "translateX(" + pos + "px)";
+			var videoWidth = 640
+			var correction = 9
+
+			var pos = progress * videoWidth - correction
+			// console.log("pos: ", pos)
+
+			circle.style.transform = "translateX(" + pos  + "px)";
 
 		}, 250)
 	}
