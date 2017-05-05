@@ -17,16 +17,22 @@ new Vue ({
 
 		setInterval(function(){
 
-			played = document.getElementById('reproduction-played')
-			circle = document.getElementById('circle-indicator')
+			// console.log("self.video.playing: ", self.video.playing)
 
-			var videoProgress = (self.video.currentTime) / (self.video.duration) //porcentaje de progreso del video
-			var videoWidth = 640 // ancho en pixeles del video
-			var videoCorrection = 9 // correccion a la izquierda del circulo
-			var circlePos = videoProgress * videoWidth - videoCorrection // posision del circulo
+			if (self.video.currentTime > 0 && !self.video.paused && !self.video.ended && self.video.readyState > 2) {
 
-			played.style.transform = "scaleX(" + videoProgress + ")";
-			circle.style.transform = "translateX(" + circlePos  + "px)";
+				var played = document.getElementById('reproduction-played')
+				var circle = document.getElementById('circle-indicator')
+
+				var videoProgress = (self.video.currentTime) / (self.video.duration) //porcentaje de progreso del video
+				var progressBarWidth = 616 // ancho en pixeles de la progressBar
+				var circleCorrection = 9 // correccion a la izquierda del circulo
+				var circlePos = videoProgress * progressBarWidth - circleCorrection // posision del circulo
+
+				played.style.transform = "scaleX(" + videoProgress + ")";
+				circle.style.transform = "translateX(" + circlePos  + "px)";
+			}
+
 
 		}, 250)
 	},
@@ -48,9 +54,44 @@ new Vue ({
 		},
 
 		videoPosition: function (e) {
-			console.log("e: ", e)
+			// console.log("e: ", e)
+
+			var played = document.getElementById('reproduction-played')
+			var circle = document.getElementById('circle-indicator')
+
+			var progressBar = document.getElementById('progreso')
+			var progressBarX = progressBar.getBoundingClientRect().left
+
+			var clickX = e.clientX
+
+			var progressBarWidth = 616
+			var videoProgress = (clickX - progressBarX) / progressBarWidth
+
+			var videoTime = videoProgress * this.video.duration
+			// console.log("videoTime: ", videoTime)
+
+			var circleCorrection = 9
+
+			var circlePos = clickX - progressBarX - circleCorrection
+			// console.log('circlePos: ', circlePos)
+
+			played.style.transform = "scaleX(" + videoProgress + ")";
+			circle.style.transform = "translateX(" + circlePos  + "px)";
+			this.video.currentTime = videoTime
+
 		}
 
 	}
 
 })
+
+
+
+
+
+
+
+
+
+
+
