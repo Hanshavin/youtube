@@ -1,97 +1,76 @@
-// var youtubeApp =
-new Vue ({
+var youtubeApp = new Vue ({
 	el: '#youtubeApp',
 	data: {
-		showPause: false,
-		showPlay: false,
-		videos:[{
-			ID:'video1'
-		}],
-		video: null
+		video: null,
+		played: null,
+		circle: null,
+
+		paused: false,
+		duration: "",
+		currentTime: "",
+		progress: null,
+
+		progressBarWidth: 616,
+		circleCorrection: 9
 	},
-	mounted(){
+  computed: {
+    position: function () {
+      return this.progress * this.progressBarWidth - this.circleCorrection
+    }
+  },
+	mounted() {
 
 		var self = this
 
-		self.video = document.getElementById('video1')
+		self.video = document.getElementById('video')
+		self.played = document.getElementById('reproduction-played')
+		self.circle = document.getElementById('circle-indicator')
 
-		setInterval(function(){
+		self.currentTime = self.video.currentTime
 
-			// console.log("self.video.playing: ", self.video.playing)
+		self.video.addEventListener('loadedmetadata', function() {
+			self.duration = parseTime(self.video.duration)
+		})
 
-			if (self.video.currentTime > 0 && !self.video.paused && !self.video.ended && self.video.readyState > 2) {
+		self.video.addEventListener('timeupdate', function() {
+			self.currentTime = parseTime(self.video.currentTime)
+			self.progress = self.video.currentTime / self.video.duration
+			self.updateVideProgress()
+		})
 
-				var played = document.getElementById('reproduction-played')
-				var circle = document.getElementById('circle-indicator')
-
-				var videoProgress = (self.video.currentTime) / (self.video.duration) //porcentaje de progreso del video
-				var progressBarWidth = 616 // ancho en pixeles de la progressBar
-				var circleCorrection = 9 // correccion a la izquierda del circulo
-				var circlePos = videoProgress * progressBarWidth - circleCorrection // posision del circulo
-
-				played.style.transform = "scaleX(" + videoProgress + ")";
-				circle.style.transform = "translateX(" + circlePos  + "px)";
-			}
-
-
-		}, 250)
 	},
 	methods:{
-		playVid: function(video){
-			//console.log("video: ", video)
-			document.getElementById(video.ID).play()
 
-			//document.getElementById('video1').play()
-			this.showPlay= true
-			this.showPause= true
+		play: function() {
+			this.video.play()
+			this.paused = true
 		},
-		pauseVid: function(video){
-			//document.getElementById('video1').pause()
-			document.getElementById(video.ID).pause()
-
-			this.showPause= false
-			this.showPlay= false
+		pause: function() {
+			this.video.pause()
+			this.paused = false
 		},
 
-		videoPosition: function (e) {
-			// console.log("e: ", e)
-
-			var played = document.getElementById('reproduction-played')
-			var circle = document.getElementById('circle-indicator')
-
-			var progressBar = document.getElementById('progreso')
-			var progressBarX = progressBar.getBoundingClientRect().left
-
-			var clickX = e.clientX
-
-			var progressBarWidth = 616
-			var videoProgress = (clickX - progressBarX) / progressBarWidth
-
-			var videoTime = videoProgress * this.video.duration
-			// console.log("videoTime: ", videoTime)
-
-			var circleCorrection = 9
-
-			var circlePos = clickX - progressBarX - circleCorrection
-			// console.log('circlePos: ', circlePos)
-
-			played.style.transform = "scaleX(" + videoProgress + ")";
-			circle.style.transform = "translateX(" + circlePos  + "px)";
-			this.video.currentTime = videoTime
-
+		updateVideProgress: function () {
+			this.played.style.transform = "scaleX(" + this.progress + ")";
+			this.circle.style.transform = "translateX(" + this.position  + "px)";
 		}
-
 	}
 
 })
 
+// Crear directiva custom
+function parseTime(seconds) {
+	var h = Math.trunc(seconds / 3600)
+	var m = Math.trunc((seconds - h*3600) / 60)
+	var s = Math.trunc((seconds - h*3600 - m*60))
 
+	h = h.toString()
+	m = m.toString()
+	s = s.toString()
 
+	if (s.length == 1) {
+		s = "0" + s
+	}
 
-
-
-
-
-
-
-
+	return m + ":" + s
+}

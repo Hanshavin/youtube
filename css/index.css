@@ -70,9 +70,6 @@ body {
   margin-top: -7px;
   transform: translateX(-50%);
 }
-#pause {
-  display: none;
-}
 .botones-left {
   margin: 8px;
   float: left;

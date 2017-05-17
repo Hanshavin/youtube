@@ -23,26 +23,32 @@
 		</div>
 
 		<div class="content">
-			<section class="reproductor">
+			<section class="reproductor" v-for="vid in videos">
 
-				<video id="video" class="medio" width="640" height="360">
+
+				<video  v-bind:id="vid.ID" class="medio" width="640" height="360">
 					<source src="video.mp4" type="video/mp4">
 				</video>
 
+
+
+
 				<nav class="player-bottom">
 					<div class="barra">
-						<div id="progreso">
+						<div id="progreso" v-on:click="videoPosition">
 							<div id="reproduction-played"></div>
 							<div id="circle-indicator" ></div>
 						</div>
 					</div>
 
+
+
 					<div class="botones-left">
 						<div class="playpause btn-inline">
-							<div id="play" v-on:click="play" v-show="!paused">
-								<i class="icon-play"></i>
+							<div id="play" v-on:click="playVid(vid)">
+								<i class="icon-play" v-bind:class="{noVisible : showPlay }" ></i>
 							</div>
-							<div id="pause" v-on:click="pause" v-show="paused">
+							<div id="pause" v-on:click="pauseVid(vid)" v-bind:class="{visible : showPause }" >
 								<i class="icon-pause"></i>
 							</div>
 						</div>
@@ -52,23 +58,16 @@
 						</div>
 
 						<div class="volume btn-inline">
-							<i class="icon-volume"></i>
+							<i class=" icon-volume"></i>
 						</div>
-
-						<div class="volume btn-inline">
-							<i class="icon-volume-off"></i>
-						</div>
-
 						<div class="time btn-inline">
 							<span>
-							<!-- {{ progress }} -->
-								<!-- <span class="currentTime">00:00 </span> -->
-								<span class="currentTime">{{ currentTime }} </span>/
-								<!-- <span class="duration">00:00</span> -->
-								<span class="duration">{{ duration }}</span>
+								<span class="currentTime">00:00 </span>/
+								<span class="duration">00:00</span>
 							</span>
 						</div>
 					</div>
+
 
 					<div class="botones-right">
 						<div class="fullscreen btn-inline">
@@ -78,7 +77,9 @@
 
 				</nav>
 
+
 			</section>
+
 
 		</div>
 	</div>
