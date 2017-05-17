@@ -26,14 +26,17 @@ var youtubeApp = new Vue ({
 		self.played = document.getElementById('reproduction-played')
 		self.circle = document.getElementById('circle-indicator')
 
+		// self.currentTime = parseTime(self.video.currentTime)
 		self.currentTime = self.video.currentTime
 
 		self.video.addEventListener('loadedmetadata', function() {
-			self.duration = parseTime(self.video.duration)
+			// self.duration = parseTime(self.video.duration)
+			self.duration = self.video.duration
 		})
 
 		self.video.addEventListener('timeupdate', function() {
-			self.currentTime = parseTime(self.video.currentTime)
+			// self.currentTime = parseTime(self.video.currentTime)
+			self.currentTime = self.video.currentTime
 			self.progress = self.video.currentTime / self.video.duration
 			self.updateVideProgress()
 		})
@@ -54,23 +57,40 @@ var youtubeApp = new Vue ({
 			this.played.style.transform = "scaleX(" + this.progress + ")";
 			this.circle.style.transform = "translateX(" + this.position  + "px)";
 		}
-	}
+	},
+	filters: {
+    parseTime: function (seconds) {
+			var h = Math.trunc(seconds / 3600)
+			var m = Math.trunc((seconds - h*3600) / 60)
+			var s = Math.trunc((seconds - h*3600 - m*60))
+
+			h = h.toString()
+			m = m.toString()
+			s = s.toString()
+
+			if (s.length == 1) {
+				s = "0" + s
+			}
+
+			return m + ":" + s
+    }
+  }
 
 })
 
 // Crear directiva custom
-function parseTime(seconds) {
-	var h = Math.trunc(seconds / 3600)
-	var m = Math.trunc((seconds - h*3600) / 60)
-	var s = Math.trunc((seconds - h*3600 - m*60))
+// function parseTime(seconds) {
+// 	var h = Math.trunc(seconds / 3600)
+// 	var m = Math.trunc((seconds - h*3600) / 60)
+// 	var s = Math.trunc((seconds - h*3600 - m*60))
 
-	h = h.toString()
-	m = m.toString()
-	s = s.toString()
+// 	h = h.toString()
+// 	m = m.toString()
+// 	s = s.toString()
 
-	if (s.length == 1) {
-		s = "0" + s
-	}
+// 	if (s.length == 1) {
+// 		s = "0" + s
+// 	}
 
-	return m + ":" + s
-}
+// 	return m + ":" + s
+// }

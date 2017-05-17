@@ -63,9 +63,9 @@
 							<span>
 							<!-- {{ progress }} -->
 								<!-- <span class="currentTime">00:00 </span> -->
-								<span class="currentTime">{{ currentTime }} </span>/
+								<span class="currentTime">{{ currentTime | parseTime }} </span>/
 								<!-- <span class="duration">00:00</span> -->
-								<span class="duration">{{ duration }}</span>
+								<span class="duration">{{ duration | parseTime }}</span>
 							</span>
 						</div>
 					</div>
